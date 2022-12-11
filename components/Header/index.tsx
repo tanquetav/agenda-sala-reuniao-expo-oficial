@@ -15,7 +15,7 @@ export const Header = ({
   onPressLeft,
   onPressRight,
   title,
-  headerColor = 'purple',
+  headerColor = 'green',
   textColor = '#fff',
 }: Props) => {
   return (

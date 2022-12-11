@@ -15,7 +15,7 @@ export const ModalError = ({ isVisible, onPress }: Props) => {
   return (
     <AgendaModal isVisible={isVisible}>
       <View style={styles.modalErrorContainer}>
-        <Text style={styles.textMessage}>You must select a date first!</Text>
+        <Text style={styles.textMessage}>Você precisa selecionar uma data</Text>
         <View style={styles.buttonContainer}>
           <Button title='Ok' onPress={onPress} />
         </View>

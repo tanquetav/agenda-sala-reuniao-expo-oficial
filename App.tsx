@@ -26,7 +26,7 @@ const initialState: stateProps = {
   events: undefined,
 };
 
-const calendarName = 'My Expo Agenda';
+const calendarName = 'Agenda Sala';
 
 export default function App() {
   const {
@@ -37,7 +37,7 @@ export default function App() {
     openSettings,
     getEvents,
     getCalendarId,
-  } = useCalendar(calendarName, 'purple', 'my-expo-agenda');
+  } = useCalendar(calendarName, 'green', 'agendament-sala-reuniao');
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const [granted, setGranted] = useState<Calendar[] | undefined>();
@@ -127,7 +127,7 @@ export default function App() {
       <Header
         onPressLeft={openModalRemove}
         onPressRight={openModalNewEvent}
-        title={'My Expo Agenda'}
+        title={'Agenda Sala'}
       />
       <View style={styles.calendarContainer}>
         <CalendarPicker
@@ -140,7 +140,7 @@ export default function App() {
       </View>
 
       {!!state.events?.length && (
-        <Text style={styles.textEvents}>Next Events</Text>
+        <Text style={styles.textEvents}>Agendamentos</Text>
       )}
 
       <View style={styles.flatListContainer}>

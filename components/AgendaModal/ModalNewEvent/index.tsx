@@ -26,13 +26,13 @@ export const ModalNewEvent = ({
       <View style={styles.modalContainer}>
         <Text style={styles.selectedDate}>{selectedDate?.toString()}</Text>
         <TextInput
-          placeholder='Event Name'
+          placeholder='Nome do evento'
           style={styles.input}
           onChangeText={onChangeText}
         />
         <View style={styles.buttonsContainer}>
-          <Button title='Cancel' onPress={onPressCancel} />
-          <Button title='Add' onPress={onPressAdd} />
+          <Button title='Cancelar' onPress={onPressCancel} />
+          <Button title='Adicionar' onPress={onPressAdd} />
         </View>
       </View>
     </AgendaModal>

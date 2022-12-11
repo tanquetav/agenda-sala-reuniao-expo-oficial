@@ -16,7 +16,7 @@ export const ModalNoCalendar = ({ isVisible, onPress }: Props) => {
     <AgendaModal isVisible={isVisible}>
       <View style={styles.modalNoCalendarContainer}>
         <Text style={styles.textMessage}>
-          There isn't exist a calendar yet!
+          Não foi possível acessar o calendário
         </Text>
         <View style={styles.buttonContainer}>
           <Button title='Ok' onPress={onPress} />
