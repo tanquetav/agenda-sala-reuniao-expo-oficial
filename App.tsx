@@ -127,7 +127,7 @@ export default function App() {
       <Header
         onPressLeft={openModalRemove}
         onPressRight={openModalNewEvent}
-        title={'Agenda Sala'}
+        title={'Agenda Sala de Reunião'}
       />
       <View style={styles.calendarContainer}>
         <CalendarPicker
