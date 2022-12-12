@@ -15,6 +15,10 @@ import {
 import reducer, { stateProps } from './reducer';
 import styles from './App.styles';
 import { Calendar } from 'expo-calendar';
+import { getLocales } from "expo-localization";
+
+const deviceLanguage = getLocales()[0].languageCode;
+console.log (deviceLanguage);
 
 const initialState: stateProps = {
   visibleModalNewEvent: false,
@@ -158,7 +162,9 @@ export default function App() {
           dispatch({ type: 'setEventTitle', payload: text })
         }
         onPressAdd={() => {
-          createCalAndEvent();
+          createCalAndEvent().then(r => {
+            closeModalNewEvent();
+          });
           closeModalNewEvent();
         }}
         onPressCancel={closeModalNewEvent}

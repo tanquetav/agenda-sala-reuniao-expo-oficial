@@ -1,6 +1,7 @@
 import * as Calendar from 'expo-calendar';
 import { DateChangedCallback } from 'react-native-calendar-picker';
 
+
 export type stateProps = {
   visibleModalNewEvent: boolean;
   visibleModalError: boolean;
