@@ -4,7 +4,7 @@ const modalWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   modalContainer: {
-    height: '45%',
+    height: '55%',
     width: (modalWidth * 75) / 100,
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   selectedDate: {
     fontSize: 15,
     marginBottom: 20,
+
   },
   input: {
     paddingLeft: 5,
@@ -27,6 +28,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 30,
   },
+  hourContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  }
 });
 
 export default styles;

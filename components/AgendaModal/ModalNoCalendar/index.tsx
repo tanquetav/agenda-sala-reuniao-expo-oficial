@@ -13,7 +13,7 @@ type Props = {
 
 export const ModalNoCalendar = ({ isVisible, onPress }: Props) => {
   return (
-    <AgendaModal isVisible={isVisible}>
+    <AgendaModal isVisible={isVisible} locale={"pt-BR"}>
       <View style={styles.modalNoCalendarContainer}>
         <Text style={styles.textMessage}>
           Não foi possível acessar o calendário

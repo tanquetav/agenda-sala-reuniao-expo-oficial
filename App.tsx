@@ -17,6 +17,8 @@ import styles from './App.styles';
 import { Calendar } from 'expo-calendar';
 import { getLocales } from "expo-localization";
 
+
+
 const deviceLanguage = getLocales()[0].languageCode;
 console.log (deviceLanguage);
 
@@ -139,6 +141,13 @@ export default function App() {
             // @ts-ignore
             dispatch({ type: 'setSelectedDate', payload: evt })
           }
+            selectedDayColor={'#00BFFF'}
+            selectedDayTextColor={'#FFFFFF'}
+            todayBackgroundColor={'#00BFFF'}
+            todayTextStyle={{ color: '#FFFFFF' }}
+            textStyle={{ color: '#000000' }}
+            weekdays={['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']}
+            months={['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio','Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ]}
           minDate={new Date()}
         />
       </View>
@@ -161,6 +170,11 @@ export default function App() {
         onChangeText={(text) =>
           dispatch({ type: 'setEventTitle', payload: text })
         }
+
+        onChangeTime={(time) => {
+            dispatch({ type: 'setSelectedDate', payload: time });
+        }}
+
         onPressAdd={() => {
           createCalAndEvent().then(r => {
             closeModalNewEvent();
@@ -168,6 +182,8 @@ export default function App() {
           closeModalNewEvent();
         }}
         onPressCancel={closeModalNewEvent}
+       dateFormated={state.selectedDate?.format('DD/MM/yyyy')}
+
       />
 
       <ModalError

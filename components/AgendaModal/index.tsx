@@ -5,6 +5,7 @@ import styles from './AgendaModal.styles';
 type Props = {
   children: JSX.Element | JSX.Element[];
   isVisible: boolean;
+  locale?: string;
 };
 
 export const AgendaModal = ({ children, isVisible }: Props) => {
