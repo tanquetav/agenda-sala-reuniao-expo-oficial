@@ -18,7 +18,7 @@ export const AgendaItem = ({ item }: Props) => {
         <Spacer h={2} />
         <Text style={styles.textDate}>
             {/*{new Date(item.startDate).toLocaleTimeString()}*/}
-
+            {/*{new Date().setTime().toLocaleTimeString()}*/}
 
             {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
 

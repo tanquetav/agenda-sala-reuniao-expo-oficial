@@ -8,6 +8,7 @@ import styles from './ModalNewEvent.styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React from "react";
 import moment from "moment";
+import {Spacer} from "../../Spacer";
 
 type Props = {
   isVisible: boolean;
@@ -16,7 +17,7 @@ type Props = {
   onPressCancel: () => void;
   onPressAdd: () => void;
   onChangeTime: (event: any, selectTime: any) => void;
-  dateFormated: (date: Date) => string;
+  dateFormated: (date: Date) => void;
 };
 
 export const ModalNewEvent = ({
@@ -31,7 +32,24 @@ export const ModalNewEvent = ({
   return (
     <AgendaModal isVisible={isVisible}>
       <View style={styles.modalContainer}>
-        <Text style={styles.selectedDate}>{selectedDate}</Text>
+        <View>
+          <Spacer h={2} />
+            <Text>
+              Novo Agendamento
+            </Text>
+            <Spacer h={2} />
+
+            <Text>
+              Data: {selectedDate?.localeCompare('dd, MMMM, YYYY') === Date.UTC(2022, 12, 16) ? 'Selecione uma data' : Date.UTC(2022, 12, 16, 12, 30)}
+            </Text>
+            <Spacer h={2} />
+          <Text>
+            Hoje é: {dateFormated(new Date())}
+          </Text>
+
+            <Spacer h={2} />
+        </View>
+
         <TextInput
           placeholder='Nome do evento'
           style={styles.input}
