@@ -9,8 +9,7 @@ type Props = {
 };
 
 export const AgendaItem = ({ item }: Props) => {
-    item.location = item.location = "" || 'Local não informado';
-    console.log(item.location);
+
   return (
     <View style={styles.container}>
       <Text style={styles.textDate}>
@@ -18,7 +17,11 @@ export const AgendaItem = ({ item }: Props) => {
       </Text>
         <Spacer h={2} />
         <Text style={styles.textDate}>
-            {new Date(item.startDate).toLocaleTimeString()}
+            {/*{new Date(item.startDate).toLocaleTimeString()}*/}
+
+
+            {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+
         </Text>
       <Spacer h={2} />
       <Text style={styles.eventText}>{item.title}</Text>

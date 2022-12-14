@@ -30,6 +30,9 @@ const initialState: stateProps = {
   eventTitle: '',
   selectedDate: undefined,
   events: undefined,
+  hour: undefined,
+  endDate: Date
+
 };
 
 const calendarName = 'Agenda Sala';
@@ -128,6 +131,7 @@ export default function App() {
     loadEvents();
   }, []);
 
+
   return (
     <View style={styles.container}>
       <Header
@@ -172,7 +176,7 @@ export default function App() {
         }
 
         onChangeTime={(time) => {
-            dispatch({ type: 'setSelectedDate', payload: time });
+            dispatch({ type: 'onChangeTime', payload: time });
         }}
 
         onPressAdd={() => {
@@ -182,9 +186,15 @@ export default function App() {
           closeModalNewEvent();
         }}
         onPressCancel={closeModalNewEvent}
-       dateFormated={state.selectedDate?.format('DD/MM/yyyy')}
 
-      />
+       dateFormated={date => {
+          const dateFormatted = new Date(date);
+            const day = dateFormatted.getDate();
+            const month = dateFormatted.getMonth() + 1;
+            const year = dateFormatted.getFullYear();
+            return `${day}/${month}/${year}`;
+        }}
+        />
 
       <ModalError
         isVisible={state.visibleModalError}

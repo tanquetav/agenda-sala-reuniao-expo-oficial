@@ -10,6 +10,8 @@ export type stateProps = {
   eventTitle: string;
   selectedDate: DateChangedCallback | undefined;
   events: Calendar.Event[] | undefined;
+  hour: number | undefined; // hour of the event
+  endDate: DateChangedCallback | undefined;
 };
 
 type Actions =
@@ -20,7 +22,9 @@ type Actions =
   | { type: 'setEventTitle'; payload: string }
   | { type: 'setSelectedDate'; payload: DateChangedCallback | undefined }
   | { type: 'setEvents'; payload: Calendar.Event[] | undefined }
-  | { type: 'clear' };
+  | { type: 'clear' }
+  | { type: 'setHour'; payload: number | undefined  }
+
 
 function reducer(state: stateProps, action: Actions) {
   switch (action.type) {
@@ -65,6 +69,11 @@ function reducer(state: stateProps, action: Actions) {
         ...state,
         eventTitle: '',
       };
+    case 'setHour':
+        return {
+            ...state,
+            hour: action.payload,
+        };
     default:
       return state;
   }
