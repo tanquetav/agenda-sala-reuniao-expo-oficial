@@ -9,6 +9,7 @@ export type stateProps = {
   visibleModalRemove: boolean;
   visibleModalNoCalendar: boolean;
   eventTitle: string;
+  eventTime: string;
   selectedDate: string | Date | undefined;
   events: Calendar.Event[] | undefined;
   hour: number | undefined; // hour of the event
@@ -22,6 +23,7 @@ type Actions =
   | { type: 'setVisibleModalRemove'; payload: boolean }
   | { type: 'setVisibleModalNoCalendar'; payload: boolean }
   | { type: 'setEventTitle'; payload: string }
+  | { type: 'setEventTime'; payload: string }
   | { type: 'setSelectedDate'; payload: DateTime | undefined }
   | { type: 'setEvents'; payload: Calendar.Event[] | undefined }
   | { type: 'clear' }
@@ -54,6 +56,11 @@ function reducer(state: stateProps, action: Actions) {
       return {
         ...state,
         eventTitle: action.payload,
+      };
+    case 'setEventTime':
+      return {
+        ...state,
+        eventTime: action.payload,
       };
     case 'setSelectedDate':
       return {
