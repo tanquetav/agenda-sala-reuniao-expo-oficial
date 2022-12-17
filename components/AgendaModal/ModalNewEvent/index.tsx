@@ -13,12 +13,15 @@ import 'moment/locale/pt-br';
 
 type Props = {
   isVisible: boolean;
-  selectedDate: string | undefined;
+  selectedDate: any | undefined;
   onChangeText: (text: string) => void;
   onPressCancel: () => void;
   onPressAdd: () => void;
-  onChangeTime: (event: any, selectTime: any) => void;
-  dateFormated: (date: Date) => void;
+  onChangeTime: (event: any, selectedDate: any) => void;
+  dateFormatted: (date: Date) => void;
+  setEventTime: (time: any) => void;
+    setEventTitle: (title: any) => void;
+    setHour: (hour: any) => void;
 };
 //
 // let filterDate1 = (date: Date) => {;
@@ -71,7 +74,8 @@ export const ModalNewEvent = ({
                                 onPressCancel,
                                 onPressAdd,
                                 onChangeTime,
-                                dateFormated,
+                                dateFormatted,
+                                setHour,
                               }: Props) => {
   return (
       <AgendaModal isVisible={isVisible}>
@@ -87,15 +91,22 @@ export const ModalNewEvent = ({
               {/*Data: {selectedDate?.localeCompare('dd, MMMM, YYYY') === Date.UTC(2022, 12, 16) ? 'Selecione uma data' : Date.UTC(2022, 12, 16, 12, 30)}*/}
               <View>
                 <Text>
-             oi:{timeStampToDate(selectedDate)}
-                </Text>
-                </View>
 
-            {/*console.warn(typeof selectedDate)*/}
+             Data Agendamento: {timeStampToDate(selectedDate)}
+                    {console.log(Object.getOwnPropertyNames( onChangeTime))}
+                </Text>
+
+              </View>
+                    {/*{(selectedDate.isSameOrAfter(moment().format('YYYY-MM-DD HH:mm:ss')) )}*/}
+                    {/*//? 'Selecione uma data' : selectedDate)}*/}
+
+
+                {/*{console.log(Object.getOwnPropertyNames(selectedDate))}*/}
+                {/*{console.log(selectedDate)}*/}
             </Text>
             <Spacer h={2} />
             <Text>
-              Hoje é: {dateFormated(new Date())}
+              Hoje é: {dateFormatted(new Date())}
             </Text>
 
             <Spacer h={2} />
@@ -106,8 +117,16 @@ export const ModalNewEvent = ({
               style={styles.input}
               onChangeText={onChangeText}
           />
+            <Spacer h={2} />
+            <View
+                testID="dateTimePicker"
+                style={styles.input}
+                onChangeTime={setHour}
+                keyboardType={'numeric'}
+
+            />
           <View style={styles.buttonsContainer}>
-            <DateTimePicker style={styles.hourContainer} value={new Date()} mode="time" onChange={onChangeTime}/>
+            <DateTimePicker style={styles.hourContainer} value={new Date()} mode="time" onChange={setHour}/>
           </View>
           <View style={styles.buttonsContainer}>
             <Button title='Cancelar' onPress={onPressCancel} />

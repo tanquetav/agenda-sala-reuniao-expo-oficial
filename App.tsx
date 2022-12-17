@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useReducer, useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
+import * as calendarexpo from 'expo-calendar';
 import useCalendar from '@atiladev/usecalendar';
 
 import {
@@ -16,6 +17,7 @@ import reducer, { stateProps } from './reducer';
 import styles from './App.styles';
 import { Calendar } from 'expo-calendar';
 import { getLocales } from "expo-localization";
+import {DateTime} from "i18n-js";
 
 
 
@@ -51,6 +53,14 @@ export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [granted, setGranted] = useState<Calendar[] | undefined>();
 
+
+  const setHour = (hour: DateTime) => {
+    if ("getHours" in hour) {
+      state.selectedDate?.setHours(hour.getHours());
+    }
+    dispatch({ type: 'SET_HOUR', payload: hour });
+  }
+
   const openModalNewEvent = () => {
     if (state.selectedDate) {
       dispatch({ type: 'setVisibleModalNewEvent', payload: true });
@@ -67,6 +77,7 @@ export default function App() {
     dispatch({ type: 'setVisibleModalError', payload: false });
   };
 
+  // @ts-ignore
   const openModalRemove = async () => {
     const calendarId = await getCalendarId();
     if (calendarId) {
@@ -75,16 +86,20 @@ export default function App() {
       openModalNoCalendar();
     }
   };
+
+  // @ts-ignore
   const closeModalRemove = () => {
     dispatch({ type: 'setVisibleModalRemove', payload: false });
   };
 
+  // @ts-ignore
   const openModalNoCalendar = () => {
-    dispatch({ type: 'setVisibleModalNoCalendar', payload: true });
+    dispatch({ type: "setVisibleModalNoCalendar", payload: true });
   };
 
   const closeModalNoCalendar = () => {
-    dispatch({ type: 'setVisibleModalNoCalendar', payload: false });
+    // @ts-ignore
+    dispatch({ type: "setVisibleModalNoCalendar", payload: false });
   };
 
   const askPermission = async () => {
@@ -105,10 +120,10 @@ export default function App() {
 
       if (state.selectedDate) {
         try {
-          addEventsToCalendar(
-            state.eventTitle,
-            new Date(state.selectedDate.toString()),
-            new Date(state.selectedDate.toString())
+          await addEventsToCalendar(
+              state.eventTitle,
+              new Date(state.selectedDate),
+              new Date(state.selectedDate),
           );
           const listEvent = await getEvents();
           dispatch({ type: 'setEvents', payload: listEvent });
@@ -153,6 +168,7 @@ export default function App() {
             weekdays={['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']}
             months={['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio','Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ]}
           minDate={new Date()}
+
         />
       </View>
 
@@ -170,13 +186,14 @@ export default function App() {
 
       <ModalNewEvent
         isVisible={state.visibleModalNewEvent}
-        selectedDate={state.selectedDate?.toString()}
+        //TODO RETIREI .tostring do selectedDate?
+        selectedDate={state.selectedDate}
         onChangeText={(text) =>
           dispatch({ type: 'setEventTitle', payload: text })
         }
 
         onChangeTime={(time) => {
-            dispatch({ type: 'onChangeTime', payload: time });
+            dispatch({ type: 'setEventTime', payload: time });
         }}
 
         onPressAdd={() => {
@@ -187,7 +204,7 @@ export default function App() {
         }}
         onPressCancel={closeModalNewEvent}
 
-       dateFormated={date => {
+       dateFormatted={date => {
           const dateFormatted = new Date(date);
             const day = dateFormatted.getDate();
             const month = dateFormatted.getMonth() + 1;
@@ -222,3 +239,4 @@ export default function App() {
   );
 
 }
+console.log(reducer.state);

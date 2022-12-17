@@ -1,5 +1,6 @@
 import * as Calendar from 'expo-calendar';
 import { DateChangedCallback } from 'react-native-calendar-picker';
+import {DateTime} from "i18n-js";
 
 
 export type stateProps = {
@@ -8,11 +9,12 @@ export type stateProps = {
   visibleModalRemove: boolean;
   visibleModalNoCalendar: boolean;
   eventTitle: string;
-  selectedDate: DateChangedCallback | undefined;
+  selectedDate: string | Date | undefined;
   events: Calendar.Event[] | undefined;
   hour: number | undefined; // hour of the event
   endDate: DateChangedCallback | undefined;
 };
+
 
 type Actions =
   | { type: 'setVisibleModalNewEvent'; payload: boolean }
@@ -20,10 +22,10 @@ type Actions =
   | { type: 'setVisibleModalRemove'; payload: boolean }
   | { type: 'setVisibleModalNoCalendar'; payload: boolean }
   | { type: 'setEventTitle'; payload: string }
-  | { type: 'setSelectedDate'; payload: DateChangedCallback | undefined }
+  | { type: 'setSelectedDate'; payload: DateTime | undefined }
   | { type: 'setEvents'; payload: Calendar.Event[] | undefined }
   | { type: 'clear' }
-  | { type: 'setHour'; payload: number | undefined  }
+  | { type: 'SET_HOUR'; payload: number | undefined  }
 
 
 function reducer(state: stateProps, action: Actions) {
@@ -69,7 +71,7 @@ function reducer(state: stateProps, action: Actions) {
         ...state,
         eventTitle: '',
       };
-    case 'setHour':
+    case 'SET_HOUR':
         return {
             ...state,
             hour: action.payload,
@@ -78,5 +80,7 @@ function reducer(state: stateProps, action: Actions) {
       return state;
   }
 }
+console.log(Object.getOwnPropertyNames( reducer));
+
 
 export default reducer;
