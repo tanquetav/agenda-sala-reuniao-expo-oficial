@@ -6,7 +6,7 @@ import { Button } from '../../Button';
 import styles from './ModalNewEvent.styles';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import {Spacer} from "../../Spacer"
 import 'moment/locale/pt-br';
@@ -77,6 +77,8 @@ export const ModalNewEvent = ({
                                 dateFormatted,
                                 setHour,
                               }: Props) => {
+const [time, setTime] = useState(new Date())
+
   return (
       <AgendaModal isVisible={isVisible}>
         <View style={styles.modalContainer}>
@@ -119,7 +121,11 @@ export const ModalNewEvent = ({
           />
             <Spacer h={2} />
           <View style={styles.buttonsContainer}>
-            {false && <DateTimePicker style={styles.hourContainer} value={new Date()} mode="time" onChange={setHour}/>}
+            {true && <DateTimePicker style={styles.hourContainer} value={time} mode="time" onChange={(d)=>{
+              setTime(new Date(d.nativeEvent.timestamp));
+              setHour(d)
+            }
+              }/>}
           </View>
           <View style={styles.buttonsContainer}>
             <Button title='Cancelar' onPress={onPressCancel} />
