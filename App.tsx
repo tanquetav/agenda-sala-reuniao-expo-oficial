@@ -18,6 +18,7 @@ import styles from './App.styles';
 import { Calendar } from 'expo-calendar';
 import { getLocales } from "expo-localization";
 import {DateTime} from "i18n-js";
+import moment from 'moment';
 
 
 
@@ -30,6 +31,7 @@ const initialState: stateProps = {
   visibleModalRemove: false,
   visibleModalNoCalendar: false,
   eventTitle: '',
+  eventTime: '',
   selectedDate: undefined,
   events: undefined,
   hour: undefined,
@@ -120,10 +122,14 @@ export default function App() {
 
       if (state.selectedDate) {
         try {
+          const time = moment(state.eventTime);
+          const date = moment(state.selectedDate);
+          const date2 = date.hour(state.eventTime.substr(0,2)).minute(state.eventTime.substr(3,2));
+          console.log(state.eventTime.substr(0,2), state.eventTime.substr(3,2))
           await addEventsToCalendar(
               state.eventTitle,
-              new Date(state.selectedDate),
-              new Date(state.selectedDate),
+              date2.toDate(),
+              date2.toDate(),
           );
           const listEvent = await getEvents();
           dispatch({ type: 'setEvents', payload: listEvent });
@@ -193,7 +199,13 @@ export default function App() {
         }
 
         onChangeTime={(time) => {
+          console.log(time)
             dispatch({ type: 'setEventTime', payload: time });
+        }}
+        setHour = { (hour) => {
+          const tim = moment(hour.nativeEvent.timestamp)
+          console.log(tim.format("HH:mm:ss"))
+            dispatch({ type: 'setEventTime', payload: tim.format("HH:mm:ss") });
         }}
 
         onPressAdd={() => {
@@ -239,4 +251,4 @@ export default function App() {
   );
 
 }
-console.log(reducer.state);
+console.log(reducer.state)

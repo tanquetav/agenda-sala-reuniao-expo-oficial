@@ -118,15 +118,8 @@ export const ModalNewEvent = ({
               onChangeText={onChangeText}
           />
             <Spacer h={2} />
-            <View
-                testID="dateTimePicker"
-                style={styles.input}
-                onChangeTime={setHour}
-                keyboardType={'numeric'}
-
-            />
           <View style={styles.buttonsContainer}>
-            <DateTimePicker style={styles.hourContainer} value={new Date()} mode="time" onChange={setHour}/>
+            {false && <DateTimePicker style={styles.hourContainer} value={new Date()} mode="time" onChange={setHour}/>}
           </View>
           <View style={styles.buttonsContainer}>
             <Button title='Cancelar' onPress={onPressCancel} />
